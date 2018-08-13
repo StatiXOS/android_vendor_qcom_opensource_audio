@@ -607,7 +607,7 @@ bool AudioPolicyManagerCustom::isOffloadSupported(const audio_offload_info_t& of
 #endif
     //TODO: enable audio offloading with video when ready
     const bool allowOffloadWithVideo =
-            property_get_bool("audio.offload.video", true /* default_value */);
+            property_get_bool("audio.offload.video", false /* default_value */);
     if (offloadInfo.has_video && !allowOffloadWithVideo) {
         ALOGV("isOffloadSupported: has_video == true, returning false");
         return false;
@@ -1744,7 +1744,7 @@ audio_io_handle_t AudioPolicyManagerCustom::getOutputForDevice(
         *flags = (audio_output_flags_t)(*flags &~AUDIO_OUTPUT_FLAG_DEEP_BUFFER);
     } else if (/* stream == AUDIO_STREAM_MUSIC && */
             (*flags == AUDIO_OUTPUT_FLAG_NONE || *flags == AUDIO_OUTPUT_FLAG_DIRECT) &&
-            property_get_bool("audio.deep_buffer.media", true /* default_value */)) {
+            property_get_bool("audio.deep_buffer.media", false /* default_value */)) {
             forced_deep = true;
     }
 
